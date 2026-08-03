@@ -29,6 +29,7 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
 		UptimeSeconds: time.Since(startTime).Seconds(),
 	}
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
