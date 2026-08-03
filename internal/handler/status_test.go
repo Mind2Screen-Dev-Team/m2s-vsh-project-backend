@@ -72,3 +72,16 @@ func TestStatusHandlerContentType(t *testing.T) {
 		t.Errorf("expect Content-Type 'application/json', got '%s'", contentType)
 	}
 }
+
+// TestStatusHandlerCORSHeader menguji header CORS Access-Control-Allow-Origin.
+func TestStatusHandlerCORSHeader(t *testing.T) {
+	req := httptest.NewRequest(http.MethodGet, "/api/v1/status", nil)
+	rec := httptest.NewRecorder()
+
+	StatusHandler(rec, req)
+
+	origin := rec.Header().Get("Access-Control-Allow-Origin")
+	if origin != "*" {
+		t.Errorf("expect Access-Control-Allow-Origin '*', got '%s'", origin)
+	}
+}
